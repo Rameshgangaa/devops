@@ -1,0 +1,212 @@
+DOCKER COMMANDS
+
+Installation 
+APT
+sudo apt-get remove docker docker-engine docker.io containerd runc
+sudo apt-get update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+sudo apt update
+apt-cache policy docker-ce
+sudo apt install docker-ce
+sudo systemctl status docker
+sudo usermod -aG docker ${USER}
+su - ${USER}
+id -nG
+sudo usermod -aG docker username
+dockerinfo
+
+
+*************************
+    Useful Commands
+*************************
+docker search ubuntu
+docker pull ubuntu
+docker images ls
+docker ps , docker ps -a
+docker run -it ubuntu  # helps to get into the container 
+
+
+*************************
+MOST USED
+*************************
+docker --help
+docker run 	<container-id>  #  Runs a command in a new container.
+docker start                #  Starts one or more stopped containers
+docker stop                 #  Stops one or more running containers
+docker build                #  Builds an image form a Docker file
+docker pull                 #  Pulls an image or a repository from a registry
+docker push                 #  Pushes an image or a repository to a registry
+docker import				#  To Import Docker images
+docker export               #  Exports a container’s filesystem as a tar archive
+docker exec                 #  Runs a command in a run-time container , Access a Running Container
+docker search               #  Searches the Docker Hub for images
+docker attach               #  Attaches to a running container
+docker commit               #  Creates a new image from a container’s changes
+docker login 				#  Login to dockerHub on your machine
+docker kill					#  To Kill the container thats not responding
+
+
+*************************
+DOCKER FILE 
+*************************
+Dockerfile : consists COMMANDS, ARGUMENTS & COMMENTS
+
+<INSTRUCTION> <COMMAND>
+
+FROM 	   # Defines the Base Image  # eg : FROM ubuntu:18.04
+ADD        # Adding files from Host Machine to Docker Container eg : ADD /etc/foldername /proj/app/foldername
+COPY       # 
+WORKDIR    # A place where you wanted to place your codes and scripts inside the container eg: WORKDIR /app/artifactory
+RUN        # executes command(s) in a new Layer and creates a new image , Used to install a software # eg : apt-get -y update, apt-get install -y python3
+CMD        # 
+ENTRYPOINT #
+EXPOSE     # 80:80 <HOST:CONTAINER>
+ENV		   #
+USER	   # You can mention who can 
+MAINTAINER # creators name  eg : MAINTAINER John_Joel
+
+
+to Name a container use 
+--name=app1
+
+Port Mapping 
+docker run -p 85:80 <name of the image id >
+
+*************************
+DOCKER CONTAINER
+*************************
+docker ps -a
+docker container logs <container-id>
+docker container rm <container-id>
+docker container kill
+docker container run
+docker container start
+
+docker login
+Used to push your container to the repository and download it back -- Basically used for shipping
+
+docker push <id>/<image_Name>
+docker push njohnjoel/MyUbuntuImage
+docker exec -it <container_id> bash
+
+docker commit : creates a new image of an edited container on local repo
+docker commit <container_id> njohnjoel/MyUbuntuModifiedImage
+
+Docker Export : This command is used to export a docker image into a tar file 
+docker export --output="latest.tar" <image_name/Image_id>
+
+Docker Import <location>
+
+
+
+*************************
+DOCKER COMPOSE .yml
+*************************
+Used to power multiple container applications where various services will be hosted inside different containers
+
+docker-compose up 	# This can be done only if you are the same location where the file is created 
+docker-compose up -f <filepath>
+
+
+docker-compose build
+docker-compose up
+
+
+*************************
+DOCKER SWARM
+*************************
+Creates a Network for Docker Engines/ Hosts to execute containers in parallel (used for scalabiliy and high availability) 
+Its a Technique to create and maintain a cluster of Docker Images.
+Service deployed in any node can be accessed on other nodes in the same cluster
+=== Features 
+1. High Availability of Services
+2. Auto Load-Balancing
+3. DeCentralized Access
+4. Easy to Scale-up Deployments
+5. Rolling Updates
+
+docker swarm init --advertise-addr 192.168.1.100
+docker swarm join
+docker swarm join-token
+docker swarm leave  ## used on slave nodes 
+docker swarm leave --force ## used on master 
+
+
+
+
+*************************
+DOCKER SERVICE
+*************************
+This Command is used to control any existing Docker Service
+
+
+docker service ls 
+docker service ps
+docker service scale
+docker service stop
+docker service logs
+docker service rm
+ 
+ 
+*************************
+ALL COMMANDS
+*************************
+docker attach		# Attach local standard input, output, and error streams to a running container
+docker build		# Build an image from a Dockerfile
+docker builder		# Manage builds
+docker checkpoint	# Manage checkpoints
+docker commit		# Create a new image from a container’s changes
+docker config		# Manage Docker configs
+docker container	# Manage containers
+docker context		# Manage contexts
+docker cp			# Copy files/folders between a container and the local filesystem
+docker create		# Create a new container
+docker diff			# Inspect changes to files or directories on a container’s filesystem
+docker events		# Get real time events from the server
+docker exec			# Run a command in a running container
+docker export		# Export a container’s filesystem as a tar archive
+docker history		# Show the history of an image
+docker image		# Manage images
+docker images		# List images
+docker import		# Import the contents from a tarball to create a filesystem image
+docker info			# Display system-wide information
+docker inspect		# Return low-level information on Docker objects
+docker kill			# Kill one or more running containers
+docker load			# Load an image from a tar archive or STDIN
+docker login		# Log in to a Docker registry
+docker logout		# Log out from a Docker registry
+docker logs			# Fetch the logs of a container
+docker manifest		# Manage Docker image manifests and manifest lists
+docker network		# Manage networks
+docker node			# Manage Swarm nodes
+docker pause		# Pause all processes within one or more containers
+docker plugin		# Manage plugins
+docker port			# List port mappings or a specific mapping for the container
+docker ps			# List containers
+docker pull			# Pull an image or a repository from a registry
+docker push			# Push an image or a repository to a registry
+docker rename		# Rename a container
+docker restart		# Restart one or more containers
+docker rm			# Remove one or more containers
+docker rmi			# Remove one or more images
+docker run			# Run a command in a new container
+docker save			# Save one or more images to a tar archive (streamed to STDOUT by default)
+docker search		# Search the Docker Hub for images
+docker secret		# Manage Docker secrets
+docker service		# Manage services
+docker stack		# Manage Docker stacks
+docker start		# Start one or more stopped containers
+docker stats		# Display a live stream of container(s) resource usage statistics
+docker stop			# Stop one or more running containers
+docker swarm		# Manage Swarm
+docker system		# Manage Docker
+docker tag			# Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+docker top			# Display the running processes of a container
+docker trust		# Manage trust on Docker images
+docker unpause		# Unpause all processes within one or more containers
+docker update		# Update configuration of one or more containers
+docker version		# Show the Docker version information
+docker volume		# Manage volumes
+docker wait			# Block until one or more containers stop, then print their exit codes
